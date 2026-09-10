@@ -14,16 +14,173 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      doodles: {
+        Row: {
+          caption: string
+          created_at: string
+          id: string
+          image: string
+          student_id: string
+        }
+        Insert: {
+          caption?: string
+          created_at?: string
+          id?: string
+          image: string
+          student_id: string
+        }
+        Update: {
+          caption?: string
+          created_at?: string
+          id?: string
+          image?: string
+          student_id?: string
+        }
+        Relationships: []
+      }
+      entries: {
+        Row: {
+          author_id: string
+          body: string
+          created_at: string
+          id: string
+          intensity: number | null
+          kind: Database["public"]["Enums"]["entry_kind"]
+          occurred_on: string
+          points: number
+          strategy_text: string | null
+          student_id: string
+          title: string
+          trigger_text: string | null
+        }
+        Insert: {
+          author_id: string
+          body?: string
+          created_at?: string
+          id?: string
+          intensity?: number | null
+          kind: Database["public"]["Enums"]["entry_kind"]
+          occurred_on?: string
+          points?: number
+          strategy_text?: string | null
+          student_id: string
+          title?: string
+          trigger_text?: string | null
+        }
+        Update: {
+          author_id?: string
+          body?: string
+          created_at?: string
+          id?: string
+          intensity?: number | null
+          kind?: Database["public"]["Enums"]["entry_kind"]
+          occurred_on?: string
+          points?: number
+          strategy_text?: string | null
+          student_id?: string
+          title?: string
+          trigger_text?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          full_name: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          split_ratio: number
+          student_code: string | null
+          teacher_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          full_name?: string
+          id: string
+          role?: Database["public"]["Enums"]["app_role"]
+          split_ratio?: number
+          student_code?: string | null
+          teacher_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          full_name?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          split_ratio?: number
+          student_code?: string | null
+          teacher_id?: string | null
+        }
+        Relationships: []
+      }
+      rewards: {
+        Row: {
+          cost: number
+          created_at: string
+          id: string
+          redeemed_at: string | null
+          student_id: string
+          title: string
+        }
+        Insert: {
+          cost?: number
+          created_at?: string
+          id?: string
+          redeemed_at?: string | null
+          student_id: string
+          title: string
+        }
+        Update: {
+          cost?: number
+          created_at?: string
+          id?: string
+          redeemed_at?: string | null
+          student_id?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_my_student: { Args: { _student_id: string }; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "docente" | "studente"
+      entry_kind:
+        | "arrabbiatura"
+        | "successo"
+        | "lavoro"
+        | "gentilezza"
+        | "strategia"
+        | "libera"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +307,16 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["docente", "studente"],
+      entry_kind: [
+        "arrabbiatura",
+        "successo",
+        "lavoro",
+        "gentilezza",
+        "strategia",
+        "libera",
+      ],
+    },
   },
 } as const
