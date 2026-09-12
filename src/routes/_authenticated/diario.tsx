@@ -196,11 +196,11 @@ function DiarioPage() {
       </p>
 
       <ResizablePanelGroup
-        direction={isMobile ? "vertical" : "horizontal"}
-        onLayout={(sizes) => saveRatio(Math.round(sizes[0] ?? 60))}
+        orientation={isMobile ? "vertical" : "horizontal"}
+        onLayoutChanged={(layout) => saveRatio(Math.round(layout["pos"] ?? 60))}
         className="mt-3 min-h-[560px] rounded-3xl"
       >
-        <ResizablePanel defaultSize={profile.split_ratio} minSize={20}>
+        <ResizablePanel id="pos" defaultSize={`${profile.split_ratio}%`} minSize="20%">
           <section className="paper mr-0 h-full overflow-y-auto border-positive/40 bg-positive-soft/40 p-5 md:mr-2">
             <h2 className="text-2xl font-bold text-positive">Cose belle</h2>
             <p className="text-sm text-muted-foreground">
