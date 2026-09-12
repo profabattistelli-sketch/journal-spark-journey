@@ -12,7 +12,7 @@ export function DoodleCanvas({
 }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const drawing = useRef(false);
-  const [color, setColor] = useState(COLORS[0]);
+  const [color, setColor] = useState<string>("#2f3e5c");
   const [size, setSize] = useState(4);
   const [eraser, setEraser] = useState(false);
 
