@@ -222,7 +222,7 @@ function DiarioPage() {
           </section>
         </ResizablePanel>
         <ResizableHandle withHandle />
-        <ResizablePanel defaultSize={100 - profile.split_ratio} minSize={20}>
+        <ResizablePanel id="neg" defaultSize={`${100 - profile.split_ratio}%`} minSize="20%">
           <section className="paper ml-0 h-full overflow-y-auto border-storm/40 bg-storm-soft/40 p-5 md:ml-2">
             <h2 className="text-2xl font-bold text-storm">Arrabbiature</h2>
             <p className="text-sm text-muted-foreground">
