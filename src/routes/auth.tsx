@@ -23,7 +23,7 @@ export const Route = createFileRoute("/auth")({
 
 function AuthPage() {
   const [mode, setMode] = useState<"login" | "signup">("login");
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [loading, setLoading] = useState(false);
@@ -31,30 +31,47 @@ function AuthPage() {
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const clean = normalizeCode(username);
+    if (clean.length < 3) {
+      toast.error("Scegli un nome utente di almeno 3 lettere (senza spazi).");
+      return;
+    }
     setLoading(true);
+    const email = usernameToEmail(clean);
+
     if (mode === "signup") {
       const { error } = await supabase.auth.signUp({
         email,
         password,
         options: {
           emailRedirectTo: window.location.origin,
-          data: { full_name: fullName, role: "docente" },
+          data: { full_name: fullName || clean, role: "docente" },
         },
       });
-      setLoading(false);
       if (error) {
-        toast.error(error.message);
+        setLoading(false);
+        toast.error(
+          error.message.includes("already")
+            ? "Questo nome utente è già in uso: scegline un altro."
+            : error.message,
+        );
         return;
       }
-      toast.success("Account creato. Ora puoi entrare.");
-      setMode("login");
+      const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+      setLoading(false);
+      if (signInError) {
+        toast.success("Accesso creato. Ora puoi entrare.");
+        setMode("login");
+        return;
+      }
+      navigate({ to: "/docente" });
       return;
     }
 
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
     if (error) {
-      toast.error("Email o password non corrette.");
+      toast.error("Nome utente o password non corretti.");
       return;
     }
     navigate({ to: "/docente" });
@@ -87,15 +104,20 @@ function AuthPage() {
             </div>
           )}
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="username">Nome utente</Label>
             <Input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
-              autoComplete="email"
+              autoComplete="username"
+              placeholder="es. maestra-anna"
             />
+            {mode === "signup" && (
+              <p className="text-xs text-muted-foreground">
+                Solo lettere, numeri e trattini. Servirà per entrare ogni volta.
+              </p>
+            )}
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
