@@ -80,5 +80,8 @@ export const normalizeCode = (code: string) =>
 
 export const codeToEmail = (code: string) => `${normalizeCode(code)}@studenti.diario.app`;
 
+export const usernameToEmail = (username: string) =>
+  `${normalizeCode(username)}@docenti.diario.app`;
+
 export const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString("it-IT", { day: "numeric", month: "long", year: "numeric" });
