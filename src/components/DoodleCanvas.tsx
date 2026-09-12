@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 
-const COLORS = ["#2f3e5c", "#d1603d", "#2e8b6f", "#e0b13a", "#7a5ea8"];
+const COLORS: string[] = ["#2f3e5c", "#d1603d", "#2e8b6f", "#e0b13a", "#7a5ea8"];
 
 export function DoodleCanvas({
   onSave,
