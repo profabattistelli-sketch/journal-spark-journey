@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 
-const COLORS = ["#2f3e5c", "#d1603d", "#2e8b6f", "#e0b13a", "#7a5ea8"];
+const COLORS: string[] = ["#2f3e5c", "#d1603d", "#2e8b6f", "#e0b13a", "#7a5ea8"];
 
 export function DoodleCanvas({
   onSave,
@@ -12,7 +12,7 @@ export function DoodleCanvas({
 }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const drawing = useRef(false);
-  const [color, setColor] = useState(COLORS[0]);
+  const [color, setColor] = useState<string>("#2f3e5c");
   const [size, setSize] = useState(4);
   const [eraser, setEraser] = useState(false);
 

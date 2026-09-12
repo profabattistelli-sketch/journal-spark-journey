@@ -233,8 +233,10 @@ function StudentPanel({
 
   const addNote = useMutation({
     mutationFn: async () => {
+      const { data: userData } = await supabase.auth.getUser();
       const { error } = await supabase.from("entries").insert({
         student_id: student.id,
+        author_id: userData.user!.id,
         kind: "libera",
         title: note.trim(),
         points: notePoints,
