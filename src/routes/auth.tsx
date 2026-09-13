@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import { normalizeCode, usernameToEmail } from "@/lib/diario";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
