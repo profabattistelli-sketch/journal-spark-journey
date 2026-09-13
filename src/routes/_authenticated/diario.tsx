@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -177,6 +177,9 @@ function DiarioPage() {
             <p className="text-xs uppercase tracking-wide text-muted-foreground">Punti</p>
             <p className="text-3xl font-bold text-positive">{balance}</p>
           </div>
+          <Link to="/il-mio-diario">
+            <Button variant="outline">📖 Il mio diario</Button>
+          </Link>
           <Button
             variant="outline"
             onClick={async () => {
